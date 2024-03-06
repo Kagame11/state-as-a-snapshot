@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
 
-function App() {
+export default function From() {
+  const [to, setTo] = useState('Alice');
+  const [message, setMessage] = useState('Hello');
+
+  function handleSubmit(e){
+    e.preventDefault();
+    setTimeout(() => {
+      alert (`You said ${message} to ${to}`);
+    }, 5000);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label>
+        To:{''}
+        <select value={to} onChange={e => setTo(e.target.value)}>
+          <option value="Alice">Alice</option>
+          <option value="Bob">Bob</option>
+        </select>
+      </label>
+      <textarea placeholder="Message" value={message} onChange={e => setMessage(e.target.value)} />
+      <button type="submit">Send</button>
+    </form>
   );
 }
-
-export default App;
